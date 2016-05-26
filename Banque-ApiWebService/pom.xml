@@ -5,7 +5,7 @@
 		<groupId>fr.s2re</groupId>
 		<artifactId>Paiement-Parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../pom.xml</relativePath>
+		<relativePath>../Banque-Parent/pom.xml</relativePath>
 	</parent>
 	<dependencies>
 	<dependency>
