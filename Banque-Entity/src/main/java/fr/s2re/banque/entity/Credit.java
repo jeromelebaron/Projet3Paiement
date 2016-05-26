@@ -9,33 +9,29 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "credit")
 public class Credit extends Operationbancaire {
 
-	/**
+    /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public Credit() {
-		super();
-		
-	}
+    public Credit() {
+        super();
 
-	public Credit(Date dateOperation, double montant,
-			Comptebancaire comptebancaire) {
-		super(dateOperation, montant, comptebancaire);
-		
-	}
+    }
 
-	public Credit(int idOperation, Date dateOperation, double montant,
-			Comptebancaire comptebancaire) {
-		super(idOperation, dateOperation, montant, comptebancaire);
-		
-	}
+    public Credit(Date dateOperation, double montant, Comptebancaire comptebancaire) {
+        super(dateOperation, montant, comptebancaire);
 
-	public Credit(double montant, Comptebancaire comptebancaire) {
-		super(montant, comptebancaire);
-		// TODO Auto-generated constructor stub
-	}
+    }
 
-	
-	
+    public Credit(int idOperation, Date dateOperation, double montant, Comptebancaire comptebancaire) {
+        super(idOperation, dateOperation, montant, comptebancaire);
+
+    }
+
+    public Credit(double montant, Comptebancaire comptebancaire) {
+        super(montant, comptebancaire);
+        // TODO Auto-generated constructor stub
+    }
+
 }

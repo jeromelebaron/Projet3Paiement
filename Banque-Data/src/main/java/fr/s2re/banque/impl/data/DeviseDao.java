@@ -16,38 +16,39 @@ import fr.s2re.banque.entity.Devise;
 @Remote(IDeviseDao.class)
 @Stateless
 public class DeviseDao implements IDeviseDao {
-	@PersistenceContext(unitName="Banque-Data")
-	EntityManager em;
+    @PersistenceContext(unitName = "Banque-Data")
+    EntityManager em;
 
-	private List<Devise> listeDevises = new ArrayList<>();
+    private List<Devise> listeDevises = new ArrayList<>();
 
-	@Override
-	public Devise getDeviseByCode(String code) {
-		TypedQuery<Devise> req = em.createQuery("select d from Devise d where d.code = :code",Devise.class);
-		req.setParameter("code", code);
-		return req.getSingleResult();
-	}
+    @Override
+    public Devise getDeviseByCode(String code) {
+        TypedQuery<Devise> req = em.createQuery("select d from Devise d where d.code = :code",
+                Devise.class);
+        req.setParameter("code", code);
+        return req.getSingleResult();
+    }
 
-	@Override
-	public List<Devise> getAllDevises() {
-		Query req = em.createQuery("select * from Devise ");
-		return req.getResultList();
-	}
+    @Override
+    public List<Devise> getAllDevises() {
+        Query req = em.createQuery("select * from Devise ");
+        return req.getResultList();
+    }
 
-	@Override
-	public void addDevise(Devise d) {
-		em.persist(d);
+    @Override
+    public void addDevise(Devise d) {
+        em.persist(d);
 
-	}
+    }
 
-	@Override
-	public void deleteDevise(String code) {
-		for(Devise d : listeDevises){
-			if(d.getCode().equals(code)){
-				em.remove(d);
-			}
-		}
+    @Override
+    public void deleteDevise(String code) {
+        for (Devise d : listeDevises) {
+            if (d.getCode().equals(code)) {
+                em.remove(d);
+            }
+        }
 
-	}
+    }
 
 }

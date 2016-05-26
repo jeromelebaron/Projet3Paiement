@@ -7,9 +7,12 @@ import fr.s2re.banque.entity.Operationbancaire;
 
 public interface IOperationBancaireDao {
 
-	  Operationbancaire insertOperation(Operationbancaire paramOperation);
-	  Operationbancaire insertDebit(Debit debit);
-	  Operationbancaire insertCredit(Credit credit);
-	  List<Operationbancaire> getOperationByCompte(Integer paramIdCompte);
-	  
+    Operationbancaire insertOperation(Operationbancaire paramOperation);
+
+    Operationbancaire insertDebit(Debit debit);
+
+    Operationbancaire insertCredit(Credit credit);
+
+    List<Operationbancaire> getOperationByCompte(Integer paramIdCompte);
+
 }

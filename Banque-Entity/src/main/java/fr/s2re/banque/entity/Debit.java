@@ -9,27 +9,29 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "debit")
 public class Debit extends Operationbancaire {
 
-	public Debit() {
-		super();
-		
-	}
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
-	public Debit(Date dateOperation, double montant,
-			Comptebancaire comptebancaire) {
-		super(dateOperation, montant, comptebancaire);
-		
-	}
+    public Debit() {
+        super();
 
-	public Debit(int idOperation, Date dateOperation, double montant,
-			Comptebancaire comptebancaire) {
-		super(idOperation, dateOperation, montant, comptebancaire);
-		
-	}
+    }
 
-	public Debit(double montant, Comptebancaire comptebancaire) {
-		super(montant, comptebancaire);
-	
-	}
+    public Debit(Date dateOperation, double montant, Comptebancaire comptebancaire) {
+        super(dateOperation, montant, comptebancaire);
 
-	
+    }
+
+    public Debit(int idOperation, Date dateOperation, double montant, Comptebancaire comptebancaire) {
+        super(idOperation, dateOperation, montant, comptebancaire);
+
+    }
+
+    public Debit(double montant, Comptebancaire comptebancaire) {
+        super(montant, comptebancaire);
+
+    }
+
 }

@@ -17,42 +17,57 @@ import fr.s2re.banque.dto.DeviseDto;
 @Path("/deviseService")
 @Produces("application/json")
 public class ServiceDeviseWebServiceImp {
-	private Logger logger = Logger.getLogger(ServiceDeviseWebServiceImp.class);
-	@EJB
-	IDeviseBusiness deviseBusiness;
-	@GET
-	@Path("/devise/{code}")
-	//http://localhost:8080/Banque-WebService-0.0.1-SNAPSHOT/services/rest/deviseService/devise/EUR
-	public DeviseDto rechercherDeviseParCode(String code) {
-		return deviseBusiness.rechercherDeviseParCode(code);
-		
-	}
 
-	@GET 
-	@Path("/convert")
-	@Produces("text/plain")
-	//fin d'URL en convert?amount=50&scr=EUR&target=USD
-	public double convertir(Double amount, String src, String target) {
-		return deviseBusiness.convertir(amount, src, target);
-		
-	}
+    private static final Logger LOGGER = Logger.getLogger(ServiceDeviseWebServiceImp.class);
 
-	@PUT
-	@Path("/devise")
-	@Consumes("application/json")
-	public DeviseDto updateDevise(DeviseDto dev) {
-		return deviseBusiness.updateDevise(dev);
-		
-	}
+    @EJB
+    IDeviseBusiness deviseBusiness;
 
-	@GET
-	@Path("/devise")
-	//fin URL en deviseService/devise
-		//ou bien    deviseService/devise?changeMini=1&param2=val2
-	public List<DeviseDto> rechercherDevises(Double changeMini) {
-		return deviseBusiness.rechercherDevises(changeMini);
+    /**
+     * http://localhost:8080/Banque-WebService-0.0.1-SNAPSHOT/services/rest/deviseService/devise/EUR
+     * @param code
+     * @return
+     */
+    @GET
+    @Path("/devise/{code}")
+    public DeviseDto rechercherDeviseParCode(String code) {
+        return deviseBusiness.rechercherDeviseParCode(code);
 
-	}
+    }
 
+    /**
+     * fin d'URL en convert?amount=50&scr=EUR&target=USD
+     * @param amount
+     * @param src
+     * @param target
+     * @return
+     */
+    @GET
+    @Path("/convert")
+    @Produces("text/plain")
+    public double convertir(Double amount, String src, String target) {
+        return deviseBusiness.convertir(amount, src, target);
+
+    }
+
+    @PUT
+    @Path("/devise")
+    @Consumes("application/json")
+    public DeviseDto updateDevise(DeviseDto dev) {
+        return deviseBusiness.updateDevise(dev);
+
+    }
+
+    /**
+     * fin URL en deviseService/devise ou bien deviseService/devise?changeMini=1&param2=val2
+     * @param changeMini
+     * @return
+     */
+    @GET
+    @Path("/devise")
+    public List<DeviseDto> rechercherDevises(Double changeMini) {
+        return deviseBusiness.rechercherDevises(changeMini);
+
+    }
 
 }

@@ -7,7 +7,6 @@ import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 
-import fr.s2re.banque.api.business.ICompteBancaireBusiness;
 import fr.s2re.banque.api.business.IDeviseBusiness;
 import fr.s2re.banque.api.data.IDeviseDao;
 import fr.s2re.banque.assembleur.DtoToEntity;

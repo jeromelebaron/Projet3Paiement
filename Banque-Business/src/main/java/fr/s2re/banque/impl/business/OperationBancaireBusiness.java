@@ -6,9 +6,7 @@ import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 
-import fr.s2re.banque.api.business.ICompteBancaireBusiness;
 import fr.s2re.banque.api.business.IOperationBancaireBusiness;
-import fr.s2re.banque.api.data.ICompteBancaireDao;
 import fr.s2re.banque.api.data.IOperationBancaireDao;
 import fr.s2re.banque.assembleur.DtoToEntity;
 import fr.s2re.banque.assembleur.EntityToDto;
@@ -16,7 +14,6 @@ import fr.s2re.banque.dto.CompteBancaireDto;
 import fr.s2re.banque.dto.CreditDto;
 import fr.s2re.banque.dto.DebitDto;
 import fr.s2re.banque.dto.OperationBancaireDto;
-import fr.s2re.banque.entity.Debit;
 import fr.s2re.banque.entity.Operationbancaire;
 
 @Remote(IOperationBancaireBusiness.class)

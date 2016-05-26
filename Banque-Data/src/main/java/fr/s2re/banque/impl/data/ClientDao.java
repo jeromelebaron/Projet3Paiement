@@ -11,16 +11,17 @@ import fr.s2re.banque.entity.Client;
 
 @Remote(IClientDao.class)
 @Stateless
-public class ClientDao implements IClientDao{
-	@PersistenceContext(unitName="Banque-Data")
-	EntityManager em;
-	
-	@Override
-	public Client getCLientByNom(String nom) {
-		TypedQuery<Client> req = em.createQuery("select c from Client c where c.nomClient = :nom", Client.class);
-		req.setParameter("nom", nom);
-		Client client = req.getSingleResult();
-		return client;
-	}
+public class ClientDao implements IClientDao {
+    @PersistenceContext(unitName = "Banque-Data")
+    EntityManager em;
+
+    @Override
+    public Client getCLientByNom(String nom) {
+        TypedQuery<Client> req = em.createQuery("select c from Client c where c.nomClient = :nom",
+                Client.class);
+        req.setParameter("nom", nom);
+        Client client = req.getSingleResult();
+        return client;
+    }
 
 }
