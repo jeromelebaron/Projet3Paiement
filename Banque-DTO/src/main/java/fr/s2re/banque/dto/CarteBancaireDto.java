@@ -20,6 +20,29 @@ public class CarteBancaireDto implements Serializable {
     private String numeroCarte;
     private CompteBancaireDto comptebancaire;
 
+    public CarteBancaireDto(int idCarte, int cryptogramme, Date dateExpiration, String numeroCarte,
+            CompteBancaireDto comptebancaire) {
+        super();
+        this.idCarte = idCarte;
+        this.cryptogramme = cryptogramme;
+        this.dateExpiration = dateExpiration;
+        this.numeroCarte = numeroCarte;
+        this.comptebancaire = comptebancaire;
+    }
+
+    public CarteBancaireDto(int cryptogramme, Date dateExpiration, String numeroCarte,
+            CompteBancaireDto comptebancaire) {
+        super();
+        this.cryptogramme = cryptogramme;
+        this.dateExpiration = dateExpiration;
+        this.numeroCarte = numeroCarte;
+        this.comptebancaire = comptebancaire;
+    }
+
+    public CarteBancaireDto() {
+        super();
+    }
+    
     public int getIdCarte() {
         return idCarte;
     }
@@ -60,27 +83,6 @@ public class CarteBancaireDto implements Serializable {
         this.comptebancaire = comptebancaire;
     }
 
-    public CarteBancaireDto(int idCarte, int cryptogramme, Date dateExpiration, String numeroCarte,
-            CompteBancaireDto comptebancaire) {
-        super();
-        this.idCarte = idCarte;
-        this.cryptogramme = cryptogramme;
-        this.dateExpiration = dateExpiration;
-        this.numeroCarte = numeroCarte;
-        this.comptebancaire = comptebancaire;
-    }
-
-    public CarteBancaireDto(int cryptogramme, Date dateExpiration, String numeroCarte,
-            CompteBancaireDto comptebancaire) {
-        super();
-        this.cryptogramme = cryptogramme;
-        this.dateExpiration = dateExpiration;
-        this.numeroCarte = numeroCarte;
-        this.comptebancaire = comptebancaire;
-    }
-
-    public CarteBancaireDto() {
-        super();
-    }
+    
 
 }

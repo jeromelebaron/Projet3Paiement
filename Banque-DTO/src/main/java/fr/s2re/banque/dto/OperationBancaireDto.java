@@ -17,6 +17,29 @@ public class OperationBancaireDto implements Serializable {
     private String typeOperation;
     private CompteBancaireDto comptebancaire;
 
+    public OperationBancaireDto(int idOperation, Date dateOperation, double montant,
+            String typeOperation, CompteBancaireDto comptebancaire) {
+        super();
+        this.idOperation = idOperation;
+        this.dateOperation = dateOperation;
+        this.montant = montant;
+        this.typeOperation = typeOperation;
+        this.comptebancaire = comptebancaire;
+    }
+
+    public OperationBancaireDto(Date dateOperation, double montant, String typeOperation,
+            CompteBancaireDto comptebancaire) {
+        super();
+        this.dateOperation = dateOperation;
+        this.montant = montant;
+        this.typeOperation = typeOperation;
+        this.comptebancaire = comptebancaire;
+    }
+
+    public OperationBancaireDto() {
+        super();
+    }
+    
     public int getIdOperation() {
         return idOperation;
     }
@@ -57,27 +80,6 @@ public class OperationBancaireDto implements Serializable {
         this.comptebancaire = comptebancaire;
     }
 
-    public OperationBancaireDto(int idOperation, Date dateOperation, double montant,
-            String typeOperation, CompteBancaireDto comptebancaire) {
-        super();
-        this.idOperation = idOperation;
-        this.dateOperation = dateOperation;
-        this.montant = montant;
-        this.typeOperation = typeOperation;
-        this.comptebancaire = comptebancaire;
-    }
-
-    public OperationBancaireDto(Date dateOperation, double montant, String typeOperation,
-            CompteBancaireDto comptebancaire) {
-        super();
-        this.dateOperation = dateOperation;
-        this.montant = montant;
-        this.typeOperation = typeOperation;
-        this.comptebancaire = comptebancaire;
-    }
-
-    public OperationBancaireDto() {
-        super();
-    }
+   
 
 }

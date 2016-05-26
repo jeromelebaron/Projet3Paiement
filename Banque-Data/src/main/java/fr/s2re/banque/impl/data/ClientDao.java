@@ -20,8 +20,7 @@ public class ClientDao implements IClientDao {
         TypedQuery<Client> req = em.createQuery("select c from Client c where c.nomClient = :nom",
                 Client.class);
         req.setParameter("nom", nom);
-        Client client = req.getSingleResult();
-        return client;
+        return req.getSingleResult();
     }
 
 }

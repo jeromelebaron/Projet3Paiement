@@ -8,10 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import fr.s2re.banque.api.data.ICompteBancaireDao;
-import fr.s2re.banque.entity.Client;
 import fr.s2re.banque.entity.Comptebancaire;
-import fr.s2re.banque.entity.Credit;
-import fr.s2re.banque.entity.Debit;
 
 @Remote(ICompteBancaireDao.class)
 @Stateless
@@ -25,8 +22,7 @@ public class CompteBancaireDao implements ICompteBancaireDao {
         javax.persistence.Query req = em
                 .createQuery("Select distinct c FROM Comptebancaire c inner join fetch c.operationbancaires WHERE c.client.idClient = :idClient");
         req.setParameter("idClient", idClient);
-        List<Comptebancaire> comptes = req.getResultList();
-        return comptes;
+        return req.getResultList();
     }
 
     @Override

@@ -19,6 +19,31 @@ public class ClientDto implements Serializable {
     private BanqueDto banque;
     private List<CompteBancaireDto> comptebancaires;
 
+    public ClientDto(int idClient, String adresseClient, String nomClient, String prenomClient,
+            BanqueDto banque, List<CompteBancaireDto> comptebancaires) {
+        super();
+        this.idClient = idClient;
+        this.adresseClient = adresseClient;
+        this.nomClient = nomClient;
+        this.prenomClient = prenomClient;
+        this.banque = banque;
+        this.comptebancaires = comptebancaires;
+    }
+
+    public ClientDto(String adresseClient, String nomClient, String prenomClient, BanqueDto banque,
+            List<CompteBancaireDto> comptebancaires) {
+        super();
+        this.adresseClient = adresseClient;
+        this.nomClient = nomClient;
+        this.prenomClient = prenomClient;
+        this.banque = banque;
+        this.comptebancaires = comptebancaires;
+    }
+
+    public ClientDto() {
+        super();
+    }
+    
     public int getIdClient() {
         return idClient;
     }
@@ -67,29 +92,6 @@ public class ClientDto implements Serializable {
         this.comptebancaires = comptebancaires;
     }
 
-    public ClientDto(int idClient, String adresseClient, String nomClient, String prenomClient,
-            BanqueDto banque, List<CompteBancaireDto> comptebancaires) {
-        super();
-        this.idClient = idClient;
-        this.adresseClient = adresseClient;
-        this.nomClient = nomClient;
-        this.prenomClient = prenomClient;
-        this.banque = banque;
-        this.comptebancaires = comptebancaires;
-    }
-
-    public ClientDto(String adresseClient, String nomClient, String prenomClient, BanqueDto banque,
-            List<CompteBancaireDto> comptebancaires) {
-        super();
-        this.adresseClient = adresseClient;
-        this.nomClient = nomClient;
-        this.prenomClient = prenomClient;
-        this.banque = banque;
-        this.comptebancaires = comptebancaires;
-    }
-
-    public ClientDto() {
-        super();
-    }
+    
 
 }

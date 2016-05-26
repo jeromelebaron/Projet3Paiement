@@ -15,6 +15,25 @@ public class DeviseDto implements Serializable {
     private String code;
     private String monnaie;
 
+    public DeviseDto(int idDevise, double change, String code, String monnaie) {
+        super();
+        this.idDevise = idDevise;
+        this.change = change;
+        this.code = code;
+        this.monnaie = monnaie;
+    }
+
+    public DeviseDto(double change, String code, String monnaie) {
+        super();
+        this.change = change;
+        this.code = code;
+        this.monnaie = monnaie;
+    }
+
+    public DeviseDto() {
+        super();
+    }
+    
     public int getIdDevise() {
         return idDevise;
     }
@@ -47,23 +66,6 @@ public class DeviseDto implements Serializable {
         this.monnaie = monnaie;
     }
 
-    public DeviseDto(int idDevise, double change, String code, String monnaie) {
-        super();
-        this.idDevise = idDevise;
-        this.change = change;
-        this.code = code;
-        this.monnaie = monnaie;
-    }
-
-    public DeviseDto(double change, String code, String monnaie) {
-        super();
-        this.change = change;
-        this.code = code;
-        this.monnaie = monnaie;
-    }
-
-    public DeviseDto() {
-        super();
-    }
+    
 
 }

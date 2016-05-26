@@ -26,96 +26,97 @@ import fr.s2re.banque.entity.Debit;
 
 @Remote(ICompteBancaireBusiness.class)
 @Stateless
-public class CompteBancaireBusiness implements ICompteBancaireBusiness{
-	@EJB
-	ICompteBancaireDao compteBancaireDao;
-	@EJB
-	IOperationBancaireDao operationBancaireDao;
-	@EJB
-	IClientDao clientDao;
-	@EJB
-	ICarteBancaireDao carteBancaireDao;
+public class CompteBancaireBusiness implements ICompteBancaireBusiness {
+    @EJB
+    ICompteBancaireDao compteBancaireDao;
+    @EJB
+    IOperationBancaireDao operationBancaireDao;
+    @EJB
+    IClientDao clientDao;
+    @EJB
+    ICarteBancaireDao carteBancaireDao;
 
-	@EJB 
-	IOperationBancaireDao operationBancairedao;
+    @EJB
+    IOperationBancaireDao operationBancairedao;
 
-	private Double calculSoldeActuel(Double soldeInitial, Integer idCompteBancaire){
-		Double soldeActuel = null;
-		List<OperationBancaireDto> operationsBancaireDto = EntityToDto.fromListeOperationsEntityToListeOperationsDto(operationBancaireDao.getOperationByCompte(idCompteBancaire));
-		for(OperationBancaireDto operation : operationsBancaireDto){
-			if(operation instanceof CreditDto){
-				soldeActuel = soldeInitial + operation.getMontant();
-			}
-			if(operation instanceof DebitDto){
-				soldeActuel = soldeInitial - operation.getMontant();	
-			}
-		}
-		return soldeActuel;
-	}
+    private Double calculSoldeActuel(Double soldeInitial, Integer idCompteBancaire) {
+        Double soldeActuel = null;
+        List<OperationBancaireDto> operationsBancaireDto = EntityToDto
+                .fromListeOperationsEntityToListeOperationsDto(operationBancaireDao
+                        .getOperationByCompte(idCompteBancaire));
+        for (OperationBancaireDto operation : operationsBancaireDto) {
+            if (operation instanceof CreditDto) {
+                soldeActuel = soldeInitial + operation.getMontant();
+            }
+            if (operation instanceof DebitDto) {
+                soldeActuel = soldeInitial - operation.getMontant();
+            }
+        }
+        return soldeActuel;
+    }
 
+    @Override
+    public boolean verifierSolde(String nomClient, double montantCommande, CarteBancaireDto carteDto) {
+        ClientDto client = EntityToDto.fromClientEntityToClientDto(clientDao
+                .getCLientByNom(nomClient));
+        List<CompteBancaireDto> comptes = new ArrayList<>();
+        List<CarteBancaireDto> cartesBancaire = new ArrayList<>();
+        Double soldeActuel;
+        if (client != null) {
+            comptes = EntityToDto.fromListeComptesEntityToListeComptesDto(compteBancaireDao
+                    .getCompteByClient(client.getIdClient()));
+        }
+        if (!comptes.isEmpty()) {
+            for (CompteBancaireDto compte : comptes) {
+                cartesBancaire = EntityToDto.fromListeCartesEntityToListeCartesDto(carteBancaireDao
+                        .getCarteByCompte(compte.getIdCompte()));
+            }
+        }
 
-	@Override
-	public boolean verifierSolde(String nomClient, double montantCommande, CarteBancaireDto carteDto) {
-		ClientDto client = EntityToDto.fromClientEntityToClientDto(clientDao.getCLientByNom(nomClient));
-		List<CompteBancaireDto> comptes = new ArrayList<>();
-		List<CarteBancaireDto> cartesBancaire = new ArrayList<>();
-		Double soldeActuel;
-		if(client !=null){
-			comptes = EntityToDto.fromListeComptesEntityToListeComptesDto(compteBancaireDao.getCompteByClient(client.getIdClient()));
-		}
-		if(!comptes.isEmpty()){
-			for(CompteBancaireDto compte : comptes){
-				cartesBancaire = EntityToDto.fromListeCartesEntityToListeCartesDto(carteBancaireDao.getCarteByCompte(compte.getIdCompte()));
-			}
-		}
+        for (CarteBancaireDto carte : cartesBancaire) {
+            if (verifierCarte(carte, carteDto)) {
+                soldeActuel = calculSoldeActuel(carte.getComptebancaire().getSolde(), carte
+                        .getComptebancaire().getIdCompte());
+                if (soldeActuel != null) {
+                    if (soldeActuel <= montantCommande) {
+                        return false;
+                    }
+                    if (soldeActuel > montantCommande) {
+                        operationBancairedao.insertDebit(new Debit(new Date(), montantCommande,
+                                DtoToEntity.fromCompteBancaireDtoToCompteBancaireEntity(carte
+                                        .getComptebancaire())));
+                        return true;
+                    }
+                }
+            }
+        }
 
-		for(CarteBancaireDto carte : cartesBancaire){
-			if(verifierCarte(carte,carteDto)){
-				soldeActuel = 	calculSoldeActuel(carte.getComptebancaire().getSolde(), carte.getComptebancaire().getIdCompte());
-				if(soldeActuel !=null){
-					if(soldeActuel <= montantCommande){
-						return false;
-					}
-					if(soldeActuel > montantCommande){
-						operationBancairedao.insertDebit(new Debit(new Date(), montantCommande,
-								DtoToEntity.fromCompteBancaireDtoToCompteBancaireEntity
-								(carte.getComptebancaire())));
-						return true;
-					}
-				}
-			}
-		}
+        return false;
+    }
 
+    private boolean verifierCarte(CarteBancaireDto carte, CarteBancaireDto carteDto) {
+        if (carte.getCryptogramme() == carteDto.getCryptogramme()) {
+            if (carte.getNumeroCarte().equals(carteDto.getNumeroCarte())) {
+                return true;
+            }
 
-		return false;
-	}
+        } else {
+            return false;
+        }
+        return false;
+    }
 
-	private boolean verifierCarte(CarteBancaireDto carte,
-			CarteBancaireDto carteDto) {
-		if(carte.getCryptogramme() == carteDto.getCryptogramme()){
-			if(carte.getNumeroCarte().equals(carteDto.getNumeroCarte())){
-				return true;
-			}
+    @Override
+    public List<CompteBancaireDto> getCompteByClient(Integer idClient) {
+        final List<Comptebancaire> listeComptes = compteBancaireDao.getCompteByClient(idClient);
+        final List<CompteBancaireDto> listeComptesDto = new ArrayList<>();
+        for (Comptebancaire compteBancaire : listeComptes) {
+            final CompteBancaireDto compteDto = EntityToDto
+                    .fromCompteBancaireEntityToCompteBancaireDto(compteBancaire);
+            listeComptesDto.add(compteDto);
+        }
+        return listeComptesDto;
 
-		}
-		else{
-			return false;
-		}
-		return false;
-	}
-
-
-	@Override
-	public List<CompteBancaireDto> getCompteByClient(Integer idClient) {
-		final List<Comptebancaire> listeComptes = compteBancaireDao.getCompteByClient(idClient);
-		final List<CompteBancaireDto> listeComptesDto = new ArrayList<>();
-		for(Comptebancaire compteBancaire : listeComptes){
-			final CompteBancaireDto compteDto = EntityToDto.fromCompteBancaireEntityToCompteBancaireDto(compteBancaire);
-			listeComptesDto.add(compteDto);
-		}
-		return listeComptesDto;
-
-
-	}
+    }
 
 }

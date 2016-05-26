@@ -19,25 +19,26 @@ import fr.s2re.banque.entity.Operationbancaire;
 @Remote(IOperationBancaireBusiness.class)
 @Stateless
 public class OperationBancaireBusiness implements IOperationBancaireBusiness {
-	@EJB
-	IOperationBancaireDao operationBancaireDao;
+    @EJB
+    IOperationBancaireDao operationBancaireDao;
 
+    @Override
+    public OperationBancaireDto insertDebit(int idOperation, Date dateOperation, double montant,
+            String typeOperation, CompteBancaireDto comptebancaire) {
+        Operationbancaire debit = operationBancaireDao.insertDebit(DtoToEntity
+                .fromDebitDtoToDebitEntity(new DebitDto(idOperation, new Date(), montant,
+                        typeOperation, comptebancaire)));
+        return EntityToDto.fromOperationBancaireEntityToOperationBancaireDto(debit);
+    }
 
-	@Override
-	public OperationBancaireDto insertDebit(int idOperation,
-			Date dateOperation, double montant, String typeOperation,
-			CompteBancaireDto comptebancaire) {
-		Operationbancaire debit = operationBancaireDao.insertDebit(DtoToEntity.fromDebitDtoToDebitEntity((new DebitDto(idOperation, new Date(), montant, typeOperation, comptebancaire))));
-		return EntityToDto.fromOperationBancaireEntityToOperationBancaireDto(debit);	
-	}
+    @Override
+    public OperationBancaireDto insertCredit(int idOperation, Date dateOperation, double montant,
+            String typeOperation, CompteBancaireDto comptebancaire) {
+        Operationbancaire credit = operationBancaireDao.insertCredit(DtoToEntity
+                .fromCreditDtoToCreditEntity(new CreditDto(idOperation, new Date(), montant,
+                        typeOperation, comptebancaire)));
+        return EntityToDto.fromOperationBancaireEntityToOperationBancaireDto(credit);
 
-	@Override
-	public OperationBancaireDto insertCredit(int idOperation,
-			Date dateOperation, double montant, String typeOperation,
-			CompteBancaireDto comptebancaire) {
-		Operationbancaire credit = operationBancaireDao.insertCredit(DtoToEntity.fromCreditDtoToCreditEntity((new CreditDto(idOperation, new Date(), montant, typeOperation, comptebancaire))));
-		return EntityToDto.fromOperationBancaireEntityToOperationBancaireDto(credit);	
-
-	}
+    }
 
 }

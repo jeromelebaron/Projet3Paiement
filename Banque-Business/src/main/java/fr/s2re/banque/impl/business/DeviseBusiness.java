@@ -46,11 +46,11 @@ public class DeviseBusiness implements IDeviseBusiness {
 
 	@Override
 	public List<DeviseDto> rechercherDevises(Double changeMini) {
-		List<DeviseDto> allDevises = EntityToDto.fromListeDeviseEntityToListeDeviseDto((deviseDao.getAllDevises()));
+		List<DeviseDto> allDevises = EntityToDto.fromListeDeviseEntityToListeDeviseDto(deviseDao.getAllDevises());
 		if(changeMini==null){
 			return allDevises;
 		}else{
-			List<DeviseDto> sousListe = new ArrayList<DeviseDto>();
+			List<DeviseDto> sousListe = new ArrayList<>();
 			for(DeviseDto d : allDevises){
 				if(d.getChange()>=changeMini) sousListe.add(d);
 			}

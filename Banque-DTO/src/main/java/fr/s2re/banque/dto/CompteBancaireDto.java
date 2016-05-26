@@ -19,6 +19,22 @@ public class CompteBancaireDto implements Serializable {
     private ClientDto client;
     private List<OperationBancaireDto> operationbancaires;
 
+    public CompteBancaireDto(String codeBic, String codeIban, double solde,
+            List<CarteBancaireDto> cartebancaires, ClientDto client,
+            List<OperationBancaireDto> operationbancaires) {
+        super();
+        this.codeBic = codeBic;
+        this.codeIban = codeIban;
+        this.solde = solde;
+        this.cartebancaires = cartebancaires;
+        this.client = client;
+        this.operationbancaires = operationbancaires;
+    }
+
+    public CompteBancaireDto() {
+        super();
+    }
+    
     public int getIdCompte() {
         return idCompte;
     }
@@ -75,20 +91,6 @@ public class CompteBancaireDto implements Serializable {
         this.operationbancaires = operationbancaires;
     }
 
-    public CompteBancaireDto(String codeBic, String codeIban, double solde,
-            List<CarteBancaireDto> cartebancaires, ClientDto client,
-            List<OperationBancaireDto> operationbancaires) {
-        super();
-        this.codeBic = codeBic;
-        this.codeIban = codeIban;
-        this.solde = solde;
-        this.cartebancaires = cartebancaires;
-        this.client = client;
-        this.operationbancaires = operationbancaires;
-    }
-
-    public CompteBancaireDto() {
-        super();
-    }
+    
 
 }

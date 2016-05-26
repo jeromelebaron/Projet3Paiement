@@ -71,9 +71,9 @@ public class EntityToDto {
             List<Operationbancaire> listeOperations) {
         final List<OperationBancaireDto> listeOperationsDto = new ArrayList<>();
         for (Operationbancaire operationBancaire : listeOperations) {
-            final OperationBancaireDto OperationDto = EntityToDto
+            final OperationBancaireDto operationDto = EntityToDto
                     .fromOperationBancaireEntityToOperationBancaireDto(operationBancaire);
-            listeOperationsDto.add(OperationDto);
+            listeOperationsDto.add(operationDto);
         }
 
         return listeOperationsDto;
@@ -122,17 +122,6 @@ public class EntityToDto {
         compteBancaireDto.setSolde(compteBancaire.getSolde());
         compteBancaireDto.setIdCompte(compteBancaire.getIdCompte());
         compteBancaireDto.setClient(null);
-        /*
-         * List<Cartebancaire>listeCartes = compteBancaire.getCartebancaires();
-         * compteBancaireDto.setCartebancaires(fromListeCartesEntityToListeCartesDto(listeCartes));
-         */
-        /*
-         * List<Operationbancaire> listeoperations = compteBancaire.getOperationbancaires();
-         * compteBancaireDto
-         * .setOperationbancaires(fromListeOperationsEntityToListeOperationsDto(listeoperations));
-         */
-        // compteBancaire.getClient().setComptebancaires(null);
-        // compteBancaire.getClient().getBanque().setClients(null);
         compteBancaire.setOperationbancaires(null);
         return compteBancaireDto;
     }
@@ -166,14 +155,14 @@ public class EntityToDto {
     }
 
     public static DebitDto fromDebitEntityToDebitDto(Debit debit) {
-        DebitDto DebitDto = new DebitDto();
-        DebitDto.setDateOperation(debit.getDateOperation());
-        DebitDto.setIdOperation(debit.getIdOperation());
-        DebitDto.setMontant(debit.getMontant());
-        DebitDto.setTypeOperation("Debit");
-        DebitDto.setComptebancaire(EntityToDto.fromCompteBancaireEntityToCompteBancaireDto(debit
+        DebitDto debitDto = new DebitDto();
+        debitDto.setDateOperation(debit.getDateOperation());
+        debitDto.setIdOperation(debit.getIdOperation());
+        debitDto.setMontant(debit.getMontant());
+        debitDto.setTypeOperation("Debit");
+        debitDto.setComptebancaire(EntityToDto.fromCompteBancaireEntityToCompteBancaireDto(debit
                 .getComptebancaire()));
-        return DebitDto;
+        return debitDto;
     }
 
     public static List<DeviseDto> fromListeDeviseEntityToListeDeviseDto(List<Devise> listeDevise) {
