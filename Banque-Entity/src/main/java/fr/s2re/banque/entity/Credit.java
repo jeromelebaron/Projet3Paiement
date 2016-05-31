@@ -31,7 +31,6 @@ public class Credit extends Operationbancaire {
 
     public Credit(double montant, Comptebancaire comptebancaire) {
         super(montant, comptebancaire);
-        // TODO Auto-generated constructor stub
     }
 
 }
